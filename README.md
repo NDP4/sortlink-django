@@ -115,6 +115,7 @@ Sesuaikan file settings.py untuk mengubah:
 - Zona waktu (default: UTC)
 - Host yang diizinkan
 - Pengaturan keamanan
+  
   🔐 Fitur Keamanan
 - CSRF protection
 - XSS prevention
@@ -150,7 +151,7 @@ Sesuaikan file settings.py untuk mengubah:
 5. Buat Pull Request
     
    📄 Lisensi
-   Proyek ini dilisensikan di bawah MIT License
+   Proyek ini dilisensikan di bawah MIT License (LICENSE)
 
 👨‍💻 Author
 
