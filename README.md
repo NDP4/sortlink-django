@@ -37,6 +37,10 @@ Aplikasi pemendek URL modern yang dibangun dengan Django, dengan fitur pelacakan
 
 1. Clone repositori ini:
 
+   ```markdown
+   git clone https://github.com/NDP4/sortlink-django.git
+   ```
+
 2. Buat dan aktifkan virtual environment:
 
 ```markdown
@@ -118,6 +122,7 @@ Sesuaikan file settings.py untuk mengubah:
 - Validasi input
 - Rate limiting
 - Pembatasan akses admin
+  
   📈 Pengembangan Mendatang
 - <input disabled="" type="checkbox"> Sistem autentikasi pengguna
 - <input disabled="" type="checkbox"> API endpoint
@@ -126,6 +131,7 @@ Sesuaikan file settings.py untuk mengubah:
 - <input disabled="" type="checkbox"> Dashboard admin
 - <input disabled="" type="checkbox"> Export statistik
 - <input disabled="" type="checkbox"> Integrasi media sosial lebih lanjut
+  
   🐛 Pelaporan Bug
   Jika Anda menemukan bug atau masalah, silakan buat issue baru di repositori GitHub dengan:
 
@@ -133,14 +139,16 @@ Sesuaikan file settings.py untuk mengubah:
 2. Langkah-langkah untuk mereproduksi
 3. Screenshot (jika ada)
 4. Informasi sistem (browser, OS)
+   
    🤝 Kontribusi
    Kontribusi sangat diterima! Langkah-langkah:
 
-5. Fork repositori
-6. Buat branch fitur (git checkout -b fitur-baru)
-7. Commit perubahan (git commit -m 'Menambah fitur baru')
-8. Push ke branch (git push origin fitur-baru)
-9. Buat Pull Request
+1. Fork repositori
+2. Buat branch fitur (git checkout -b fitur-baru)
+3. Commit perubahan (git commit -m 'Menambah fitur baru')
+4. Push ke branch (git push origin fitur-baru)
+5. Buat Pull Request
+    
    📄 Lisensi
    Proyek ini dilisensikan di bawah MIT License
 
@@ -149,12 +157,14 @@ Sesuaikan file settings.py untuk mengubah:
 - Nama: NDP
 - Email: nurdwipriyambodo@proton.me
 - Website: ndpshortener.com
+  
   🙏 Terima Kasih Kepada
 - Django Team
 - Chart.js
 - Font Awesome
 - Beautiful Soup
 - Komunitas Open Source
+  
   📞 Kontak
   Untuk pertanyaan dan saran:
 
@@ -163,10 +173,3 @@ Sesuaikan file settings.py untuk mengubah:
 - Lokasi: Semarang, Indonesia
   © 2024 NDP Shortener. Hak Cipta Dilindungi.
 
-Pastikan untuk:
-
-1. Mengganti username di URL clone dengan username GitHub Anda
-2. Menambahkan screenshot aplikasi di folder screenshots
-3. Menyesuaikan informasi kontak
-4. Menambahkan file LICENSE jika diperlukan
-5. Membuat file requirements.txt dengan dependensi yang diperlukan
