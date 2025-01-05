@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Kebijakan Privasi - NDP Shortener{% endblock %}
+
+{% block page_css %}
+<style>
+    .privacy-container {
+        max-width: 800px;
+        margin: 100px auto 40px;
+        padding: 20px;
+        animation: fadeIn 0.6s ease;
+    }
+
+    .policy-section {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .policy-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .policy-section h1 {
+        color: #6366f1;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .policy-section h2 {
+        color: #4b5563;
+        margin: 25px 0 15px;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .policy-section h2 i {
+        color: #6366f1;
+        font-size: 1.2rem;
+    }
+
+    .policy-section p {
+        color: #6b7280;
+        margin-bottom: 15px;
+        line-height: 1.7;
+    }
+
+    .policy-section ul {
+        margin: 15px 0;
+        padding-left: 20px;
+    }
+
+    .policy-section li {
+        color: #6b7280;
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 25px;
+    }
+
+    .policy-section li:before {
+        content: '\f058';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        color: #6366f1;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .policy-section li:hover:before {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="privacy-container">
+    <div class="policy-section">
+        <h1><i class="fas fa-shield-alt"></i> Kebijakan Privasi</h1>
+        <p>Berlaku sejak: 1 Januari 2024</p>
+        
+        <h2><i class="fas fa-database"></i> Informasi yang Kami Kumpulkan</h2>
+        <p>Saat Anda menggunakan NDP Shortener, kami mengumpulkan:</p>
+        <ul>
+            <li>URL asli yang Anda persingkat</li>
+            <li>Alamat IP pengunjung</li>
+            <li>Informasi browser (user agent)</li>
+            <li>Waktu kunjungan</li>
+            <li>Referrer URL (jika ada)</li>
+        </ul>
+
+        <h2><i class="fas fa-tasks"></i> Penggunaan Informasi</h2>
+        <p>Informasi yang kami kumpulkan digunakan untuk:</p>
+        <ul>
+            <li>Menyediakan layanan pemendek URL</li>
+            <li>Menyajikan statistik kunjungan</li>
+            <li>Meningkatkan layanan kami</li>
+            <li>Mencegah penyalahgunaan layanan</li>
+        </ul>
+
+        <h2><i class="fas fa-server"></i> Penyimpanan Data</h2>
+        <p>Data URL dan statistik kunjungan disimpan di server kami dengan pengamanan yang ketat. Kami tidak menjual atau membagikan data Anda kepada pihak ketiga.</p>
+
+        <h2><i class="fas fa-cookie"></i> Cookie</h2>
+        <p>Kami menggunakan cookie untuk:</p>
+        <ul>
+            <li>Menjaga sesi pengguna</li>
+            <li>Menganalisis penggunaan layanan</li>
+            <li>Meningkatkan pengalaman pengguna</li>
+        </ul>
+
+        <h2><i class="fas fa-lock"></i> Keamanan</h2>
+        <p>Kami menerapkan langkah-langkah keamanan untuk melindungi data Anda, termasuk:</p>
+        <ul>
+            <li>Enkripsi data sensitif</li>
+            <li>Pemantauan keamanan berkala</li>
+            <li>Pembatasan akses data</li>
+        </ul>
+
+        <h2><i class="fas fa-user-shield"></i> Hak Pengguna</h2>
+        <p>Anda memiliki hak untuk:</p>
+        <ul>
+            <li>Mengakses data Anda</li>
+            <li>Meminta penghapusan data</li>
+            <li>Menolak penggunaan data untuk tujuan tertentu</li>
+        </ul>
+
+        <h2><i class="fas fa-envelope"></i> Kontak</h2>
+        <p>Untuk pertanyaan tentang kebijakan privasi, hubungi kami di support@ndpshortener.com</p>
+    </div>
+</div>
+{% endblock %}

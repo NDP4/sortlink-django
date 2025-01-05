@@ -1,0 +1,682 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NDP URL Shortener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: #f8f9fa;
+            color: #333;
+            padding-top: 70px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 60px 0 100px;
+            text-align: center;
+            margin-top: -70px;
+            padding-top: 130px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .shortener-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: -50px;
+            position: relative;
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        .url-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            transform: scale(1.01);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+        }
+
+        .submit-btn {
+            padding: 15px 30px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .features {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: #6366f1;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            color: #4f46e5;
+        }
+
+        @media (max-width: 768px) {
+            .url-form {
+                flex-direction: column;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6366f1;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #6366f1;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #6366f1;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #9ca3af;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Animation Classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: #4b5563;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+        }
+
+        .input-group {
+            flex: 1;
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
+
+        .paste-btn {
+            padding: 15px;
+            background: #e5e7eb;
+            color: #4b5563;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .paste-btn:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .paste-btn.success {
+            background: #10b981;
+            color: white;
+        }
+
+        .paste-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: row;
+            }
+
+            .url-form {
+                flex-direction: column;
+            }
+
+            .paste-btn {
+                padding: 15px;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .toast i {
+            font-size: 1.1rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-50%) translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar hover-float">
+        <div class="nav-container">
+            <a href="{% url 'home' %}" class="nav-logo">
+                <i class="fas fa-link"></i> NDP Shortener
+            </a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Fitur</a>
+                <a href="#about" class="nav-link">Tentang</a>
+                <a href="#contact" class="nav-link">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Existing Header -->
+    <div class="header fade-in animate__animated animate__fadeIn">
+        <div class="container">
+            <h1>NDP URL Shortener</h1>
+            <p>Perpendek URL panjang Anda dengan mudah dan dapat dilacak</p>
+        </div>
+    </div>
+
+    <!-- Existing Container -->
+    <div class="container">
+        <div class="shortener-card hover-float slide-up">
+            <form method="post" class="url-form">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="url" name="url" id="urlInput" class="url-input input-focus"
+                        placeholder="Tempel URL panjang Anda di sini..." required>
+                    <button type="button" class="paste-btn hover-scale btn-pulse" id="pasteBtn"
+                        onclick="pasteFromClipboard()">
+                        <i class="fas fa-clipboard"></i> Tempel
+                    </button>
+                </div>
+                <button type="submit" class="submit-btn hover-scale btn-pulse">
+                    <i class="fas fa-link"></i> Perpendek URL
+                </button>
+            </form>
+        </div>
+
+        <!-- Features Section with Animation -->
+        <div id="features" class="features">
+            <h2>Mengapa Memilih NDP Shortener?</h2>
+            <div class="features-grid">
+                <div class="feature-card hover-float slide-up">
+                    <i class="fas fa-bolt feature-icon"></i>
+                    <h3>Super Cepat</h3>
+                    <p>Buat URL pendek secara instan dengan sistem yang optimal</p>
+                </div>
+                <div class="feature-card fade-up">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Lacak Kunjungan</h3>
+                    <p>Pantau berapa kali URL pendek Anda diakses</p>
+                </div>
+                <div class="feature-card fade-up">
+                    <i class="fas fa-lock feature-icon"></i>
+                    <h3>Aman</h3>
+                    <p>Data Anda aman dengan infrastruktur yang terpercaya</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer fade-in">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang NDP Shortener</h3>
+                <p>Mempersingkat web, satu URL dalam satu waktu. Layanan kami membantu Anda membuat tautan pendek yang
+                    dapat dilacak secara instan.</p>
+                <!-- <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div> -->
+            </div>
+            <div class="footer-section">
+                <h3>Tautan Cepat</h3>
+                <ul class="footer-links">
+                    <li><a href="#features">Fitur</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="{% url 'privacy' %}">Kebijakan Privasi</a></li>
+                    <li><a href="{% url 'terms' %}">Syarat Layanan</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Hubungi Kami</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> support@ndpshortener.com</li>
+                    <li><i class="fas fa-phone"></i> +62 859 5165 7887</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Semarang, Indonesia</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 NDP Shortener. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">URL berhasil ditempel!</span>
+    </div>
+
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function () {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Scroll Animation
+        function checkVisibility() {
+            document.querySelectorAll('.fade-up').forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Add fade-up class to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.classList.add('fade-up');
+        });
+
+        window.addEventListener('scroll', checkVisibility);
+        checkVisibility();
+
+        function showToast(message, success = true) {
+            const toast = document.getElementById('toast');
+            const icon = toast.querySelector('i');
+            const messageEl = document.getElementById('toastMessage');
+
+            messageEl.textContent = message;
+            icon.className = success ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                const urlInput = document.getElementById('urlInput');
+                const pasteBtn = document.getElementById('pasteBtn');
+
+                urlInput.value = text;
+
+                // Visual feedback
+                pasteBtn.classList.add('success');
+                pasteBtn.innerHTML = '<i class="fas fa-check"></i> Tertempel';
+                showToast('URL berhasil ditempel!');
+
+                setTimeout(() => {
+                    pasteBtn.classList.remove('success');
+                    pasteBtn.innerHTML = '<i class="fas fa-clipboard"></i> Tempel';
+                }, 2000);
+
+                // Trigger input validation
+                urlInput.dispatchEvent(new Event('input'));
+            } catch (err) {
+                showToast('Gagal mengakses clipboard. Silakan paste manual.', false);
+                console.error('Failed to read clipboard:', err);
+            }
+        }
+
+        // Auto-detect clipboard content on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const clipboardText = await navigator.clipboard.readText();
+                if (clipboardText && clipboardText.startsWith('http')) {
+                    const pasteBtn = document.getElementById('pasteBtn');
+                    pasteBtn.innerHTML = '<i class="fas fa-clipboard-check"></i> Tempel URL';
+                    pasteBtn.style.background = '#818cf8';
+                    pasteBtn.style.color = 'white';
+                }
+            } catch (err) {
+                // Silently fail - no need to show error for this auto-detection
+            }
+        });
+
+        // URL validation feedback
+        document.getElementById('urlInput').addEventListener('input', function () {
+            const submitBtn = document.querySelector('.submit-btn');
+            if (this.validity.valid && this.value) {
+                submitBtn.style.opacity = '1';
+            } else {
+                submitBtn.style.opacity = '0.7';
+            }
+        });
+
+        // Add scroll-based animations
+        document.addEventListener('DOMContentLoaded', function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.slide-up').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>

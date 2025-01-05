@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>URL Tersimpan - NDP Shortener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* ... Copy basic styles from home.html ... */
+        .saved-urls-container {
+            max-width: 1000px;
+            margin: 100px auto 40px;
+            padding: 20px;
+        }
+
+        .url-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .url-card h3 {
+            color: #4b5563;
+            margin-bottom: 10px;
+        }
+
+        .url-info {
+            color: #6b7280;
+            margin: 5px 0;
+        }
+
+        .url-notes {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .url-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .visit-btn {
+            background: #6366f1;
+            color: white;
+        }
+
+        .stats-btn {
+            background: #10b981;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Copy navbar from home.html -->
+
+    <div class="saved-urls-container">
+        <h1>URL Tersimpan</h1>
+        {% if saved_urls %}
+        {% for saved in saved_urls %}
+        <div class="url-card">
+            <h3>{{ saved.name }}</h3>
+            <div class="url-info">URL Asli: {{ saved.url.original_url }}</div>
+            <div class="url-info">URL Pendek: http://{{ request.get_host }}/{{ saved.url.short_url }}</div>
+            <div class="url-info">Disimpan pada: {{ saved.saved_at|date:"d M Y H:i" }}</div>
+            {% if saved.notes %}
+            <div class="url-notes">
+                <strong>Catatan:</strong><br>
+                {{ saved.notes }}
+            </div>
+            {% endif %}
+            <div class="url-actions">
+                <a href="/{{ saved.url.short_url }}" class="action-btn visit-btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Kunjungi
+                </a>
+                <a href="{% url 'url_stats' saved.url.short_url %}" class="action-btn stats-btn">
+                    <i class="fas fa-chart-bar"></i> Statistik
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>Belum ada URL yang disimpan.</p>
+        {% endif %}
+    </div>
+
+    <!-- Copy footer from home.html -->
+</body>
+
+</html>
