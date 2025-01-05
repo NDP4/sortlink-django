@@ -2,7 +2,7 @@
 
 Aplikasi pemendek URL modern yang dibangun dengan Django, dengan fitur pelacakan statistik dan manajemen tautan.
 
-![NDP URL Shortener Screenshot](assets/Screencast%202025-01-05%2022:45:57.mp4)
+![NDP URL Shortener Screenshot](https://github.com/NDP4/sortlink-django/assets/Screencast%202025-01-05%2022:45:57.mp4)
 
 ## 🚀 Fitur Utama
 
