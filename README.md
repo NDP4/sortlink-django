@@ -151,7 +151,7 @@ Sesuaikan file settings.py untuk mengubah:
 5. Buat Pull Request
     
    📄 Lisensi
-   Proyek ini dilisensikan di bawah MIT License (LICENSE)
+   Proyek ini dilisensikan di bawah MIT License
 
 👨‍💻 Author
 
